@@ -7,7 +7,7 @@ matrix:
     include:
         - php: 7.1
         - php: 7.0
-          env: CS_FIXER=true
+          env: CS_FIXER=true STAN=true
         - php: 5.6
         - php: 5.5
         - php: 5.4
@@ -29,6 +29,7 @@ before_install:
     - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi
     - if [ "$CS_FIXER" = true ]; then composer create-project --no-dev --no-interaction friendsofphp/php-cs-fixer utils/php-cs-fixer; fi
     - composer create-project --no-dev --no-interaction jakub-onderka/php-parallel-lint utils/php-parallel-lint
+    - if [ "$STAN" = true ]; then composer create-project --no-dev --no-interaction phpstan/phpstan utils/phpstan; fi
 
 install:
     - composer self-update
@@ -39,6 +40,7 @@ before_script:
 script:
     - utils/php-parallel-lint/parallel-lint controllers daos helpers spouts templates
     - if [ "$CS_FIXER" = true ]; then utils/php-cs-fixer/php-cs-fixer fix --verbose --dry-run --diff; fi
+    - if [ "$STAN" = true ]; then utils/phpstan/bin/phpstan analyse -c phpstan.neon -l 1 controllers daos helpers spouts templates; fi
 
 before_deploy:
     - source utils/package.sh
