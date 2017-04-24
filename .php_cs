@@ -19,8 +19,9 @@ $rules = [
     'trailing_comma_in_multiline_array' => false,
     // additional rules
     'array_syntax' => ['syntax' => 'short'],
-    'psr4' => true,
+    'ordered_imports' => true,
     'phpdoc_order' => true,
+    'psr4' => true,
 ];
 
 return PhpCsFixer\Config::create()
