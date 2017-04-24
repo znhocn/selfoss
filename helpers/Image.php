@@ -14,8 +14,8 @@ use WideImage\WideImage;
  * @author     Tobias Zeising <tobias.zeising@aditu.de>
  */
 class Image {
-    /** @var string url of last fetched favicon */
-    private $faviconUrl = false;
+    /** @var ?string url of last fetched favicon */
+    private $faviconUrl = null;
 
     private static $faviconMimeTypes = [
         // IANA assigned type
@@ -33,14 +33,17 @@ class Image {
      * fetch favicon
      *
      * @param string $url source url
+     * @param bool $isHtmlUrl
+     * @param ?int $width
+     * @param ?int $height
      *
-     * @return bool
+     * @return ?string
      */
-    public function fetchFavicon($url, $isHtmlUrl = false, $width = false, $height = false) {
+    public function fetchFavicon($url, $isHtmlUrl = false, $width = null, $height = null) {
         // try given url
         if ($isHtmlUrl === false) {
             $faviconAsPng = $this->loadImage($url, $width, $height);
-            if ($faviconAsPng !== false) {
+            if ($faviconAsPng !== null) {
                 $this->faviconUrl = $url;
 
                 return $faviconAsPng;
@@ -62,7 +65,7 @@ class Image {
             $shortcutIcon = (string) GuzzleHttp\Url::fromString($url)->combine($shortcutIcon);
 
             $faviconAsPng = $this->loadImage($shortcutIcon, $width, $height);
-            if ($faviconAsPng !== false) {
+            if ($faviconAsPng !== null) {
                 $this->faviconUrl = $shortcutIcon;
 
                 return $faviconAsPng;
@@ -73,14 +76,14 @@ class Image {
         if (isset($urlElements['scheme']) && isset($urlElements['host'])) {
             $url = $urlElements['scheme'] . '://' . $urlElements['host'] . '/favicon.ico';
             $faviconAsPng = $this->loadImage($url, $width, $height);
-            if ($faviconAsPng !== false) {
+            if ($faviconAsPng !== null) {
                 $this->faviconUrl = $url;
 
                 return $faviconAsPng;
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -88,19 +91,19 @@ class Image {
      *
      * @param string $url source url
      * @param string $extension file extension of output file
-     * @param int $width
-     * @param int $height
+     * @param ?int $width
+     * @param ?int $height
      *
-     * @return bool
+     * @return ?string
      */
-    public function loadImage($url, $extension = 'png', $width = false, $height = false) {
+    public function loadImage($url, $extension = 'png', $width = null, $height = null) {
         // load image
         try {
             $data = \helpers\WebClient::request($url);
         } catch (\Exception $e) {
             \F3::get('logger')->error("failed to retrieve image $url,", ['exception' => $e]);
 
-            return false;
+            return null;
         }
 
         // get image type
@@ -116,7 +119,7 @@ class Image {
         } elseif (strtolower($imgInfo['mime']) === 'image/x-ms-bmp') {
             $type = 'bmp';
         } else {
-            return false;
+            return null;
         }
 
         // convert ico to png
@@ -127,11 +130,11 @@ class Image {
             } catch (\InvalidArgumentException $e) {
                 \F3::get('logger')->error("Icon “{$url}” is not valid", ['exception' => $e]);
 
-                return false;
+                return null;
             }
 
             $image = null;
-            if ($width !== false && $height !== false) {
+            if ($width !== null && $height !== null) {
                 $image = $icon->findBestForSize($width, $height);
             }
 
@@ -140,7 +143,7 @@ class Image {
             }
 
             if ($image === null) {
-                return false;
+                return null;
             }
 
             $data = $loader->renderImage($image);
@@ -155,11 +158,11 @@ class Image {
         try {
             $wideImage = WideImage::load($data);
         } catch (\Exception $e) {
-            return false;
+            return null;
         }
 
         // resize
-        if ($width !== false && $height !== false) {
+        if ($width !== null && $height !== null) {
             if (($height !== null && $wideImage->getHeight() > $height) ||
                ($width !== null && $wideImage->getWidth() > $width)) {
                 $wideImage = $wideImage->resize($width, $height);
@@ -179,7 +182,7 @@ class Image {
     /**
      * get favicon url
      *
-     * @return string
+     * @return ?string
      */
     public function getFaviconUrl() {
         return $this->faviconUrl;

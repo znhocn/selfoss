@@ -297,7 +297,7 @@ class ContentLoader {
             $extension = 'jpg';
             $imageHelper = new \helpers\Image();
             $thumbnailAsJpg = $imageHelper->loadImage($thumbnail, $extension, 500, 500);
-            if ($thumbnailAsJpg !== false) {
+            if ($thumbnailAsJpg !== null) {
                 file_put_contents(
                     'data/thumbnails/' . md5($thumbnail) . '.' . $extension,
                     $thumbnailAsJpg
@@ -331,7 +331,7 @@ class ContentLoader {
             } else {
                 $imageHelper = new \helpers\Image();
                 $iconAsPng = $imageHelper->loadImage($icon, $extension, 30, null);
-                if ($iconAsPng !== false) {
+                if ($iconAsPng !== null) {
                     file_put_contents(
                         'data/favicons/' . md5($icon) . '.' . $extension,
                         $iconAsPng
