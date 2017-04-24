@@ -206,7 +206,7 @@ class Items extends BaseController {
 
             $wantItemsStatuses = array_key_exists('itemsStatuses', $_GET) && $_GET['itemsStatuses'] == 'true';
             if ($wantItemsStatuses) {
-                $sync['itemUpdates'] = $itemsDao->statuses($since->format(\DateTime::ATOM));
+                $sync['itemUpdates'] = $itemsDao->statuses($since);
             }
         }
 
