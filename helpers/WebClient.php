@@ -53,7 +53,7 @@ class WebClient {
     public static function getUserAgent($agentInfo = null) {
         $userAgent = 'Selfoss/' . \F3::get('version');
 
-        if (is_null($agentInfo)) {
+        if ($agentInfo === null) {
             $agentInfo = [];
         }
 

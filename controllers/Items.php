@@ -19,7 +19,7 @@ class Items extends BaseController {
     public function mark() {
         $this->needsLoggedIn();
 
-        if (\F3::get('PARAMS["item"]') != null) {
+        if (\F3::get('PARAMS["item"]') !== null) {
             $lastid = \F3::get('PARAMS["item"]');
         } elseif (isset($_POST['ids'])) {
             $lastid = $_POST['ids'];

@@ -71,7 +71,7 @@ class readability extends feed {
      */
     public function load($params) {
         $this->apiKey = $params['api'];
-        if (strlen(trim($this->apiKey)) == 0) {
+        if (strlen(trim($this->apiKey)) === 0) {
             $this->apiKey = \F3::get('readability');
         }
 
