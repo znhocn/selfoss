@@ -18,31 +18,7 @@ class reddit2 extends \spouts\spout {
     /** @var string description of this source type */
     public $description = 'Get your fix from Reddit';
 
-    /**
-     * config params
-     * array of arrays with name, type, default value, required, validation type
-     *
-     * - Values for type: text, password, checkbox, select
-     * - Values for validation: alpha, email, numeric, int, alnum, notempty
-     *
-     * When type is "select", a new entry "values" must be supplied, holding
-     * key/value pairs of internal names (key) and displayed labels (value).
-     * See /spouts/rss/heise for an example.
-     *
-     * e.g.
-     * array(
-     *   "id" => array(
-     *     "title"      => "URL",
-     *     "type"       => "text",
-     *     "default"    => "",
-     *     "required"   => true,
-     *     "validation" => array("alnum")
-     *   ),
-     *   ....
-     * )
-     *
-     * @var bool|mixed
-     */
+    /** @var array configurable parameters */
     public $params = [
         'url' => [
             'title' => 'Subreddit or multireddit url',
@@ -92,7 +68,7 @@ class reddit2 extends \spouts\spout {
      *
      * @return void
      */
-    public function load($params) {
+    public function load(array $params) {
         $this->apiKey = \F3::get('readability');
 
         if (!empty($params['password']) && !empty($params['username'])) {
@@ -344,11 +320,11 @@ class reddit2 extends \spouts\spout {
     /**
      * returns the xml feed url for the source
      *
-     * @param mixed $params params for the source
+     * @param array $params params for the source
      *
      * @return string url as xml
      */
-    public function getXmlUrl($params) {
+    public function getXmlUrl(array $params) {
         return  'reddit://' . urlencode($params['url']);
     }
 

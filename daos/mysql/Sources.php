@@ -16,11 +16,11 @@ class Sources extends Database {
      * @param string $title
      * @param string $tags
      * @param string $spout the source type
-     * @param mixed $params depends from spout
+     * @param array $params depends from spout
      *
      * @return int new id
      */
-    public function add($title, $tags, $filter, $spout, $params) {
+    public function add($title, $tags, $filter, $spout, array $params) {
         // sanitize tag list
         $tags = implode(',', preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY));
 
@@ -40,11 +40,11 @@ class Sources extends Database {
      * @param string $title new title
      * @param string $tags new tags
      * @param string $spout new spout
-     * @param mixed $params the new params
+     * @param array $params the new params
      *
      * @return void
      */
-    public function edit($id, $title, $tags, $filter, $spout, $params) {
+    public function edit($id, $title, $tags, $filter, $spout, array $params) {
         // sanitize tag list
         $tags = implode(',', preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY));
 
@@ -255,11 +255,11 @@ class Sources extends Database {
      *
      * @param  string  $title
      * @param  string  $spout the source type
-     * @param  mixed   $params depends from spout
+     * @param  array   $params depends from spout
      *
      * @return int id if any record is found
      */
-    public function checkIfExists($title, $spout, $params) {
+    public function checkIfExists($title, $spout, array $params) {
         // Check if a entry exists with same title, spout and params
         $result = \F3::get('db')->exec('SELECT id FROM ' . \F3::get('db_prefix') . 'sources WHERE title=:title AND spout=:spout AND params=:params', [
             ':title' => trim($title),

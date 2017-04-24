@@ -19,7 +19,7 @@ class fulltextrss extends feed {
     /** @var string description of this source type */
     public $description = 'This feed extracts full text article from webpages with an embedded version of Full-Text RSS';
 
-    /** @var array config params */
+    /** @var array configurable parameters */
     public $params = [
         'url' => [
             'title' => 'URL',

@@ -68,14 +68,14 @@ class Sources extends Database {
      *
      * @param string $title
      * @param string $spout
-     * @param mixed $params
+     * @param array $params
      *
      * @return bool|mixed true on succes or array of
      * errors on failure
      *
      * @author Tobias Zeising
      */
-    public function validate($title, $spout, $params) {
+    public function validate($title, $spout, array $params) {
         $result = [];
 
         // title
@@ -91,21 +91,6 @@ class Sources extends Database {
 
         // check params
         } else {
-            // params given but not expected
-            if ($spout->params === false) {
-                if (is_array($spout->params) && count($spout->params) > 0) {
-                    $result['spout'] = 'this spout doesn\'t expect any param';
-                }
-            }
-
-            if ($spout->params == false) {
-                if (count($result) > 0) {
-                    return $result;
-                }
-
-                return true;
-            }
-
             // required but not given params
             foreach ($spout->params as $id => $param) {
                 if ($param['required'] === false) {
@@ -124,6 +109,12 @@ class Sources extends Database {
 
             // given params valid?
             foreach ($params as $id => $value) {
+                if (!isset($spout->params[$id])) {
+                    $result[$id] = 'unexpected param ' . $id;
+
+                    continue;
+                }
+
                 $validation = $spout->params[$id]['validation'];
                 if (!is_array($validation)) {
                     $validation = [$validation];
