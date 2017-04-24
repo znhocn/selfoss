@@ -73,6 +73,8 @@ class readability extends feed {
      *
      * @author oxman @github
      *
+     * @param string $url
+     *
      * @return string content
      */
     private function fetchFromReadability($url) {

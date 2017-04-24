@@ -333,6 +333,8 @@ class reddit2 extends \spouts\spout {
      *
      * @author oxman @github
      *
+     * @param string $url
+     *
      * @throws \GuzzleHttp\Exception\RequestException When an error is encountered
      * @throws \RuntimeException if the response body is not in JSON format
      *
@@ -357,6 +359,8 @@ class reddit2 extends \spouts\spout {
      * fetch content from instapaper.com
      *
      * @author janeczku @github
+     *
+     * @param string $url
      *
      * @throws \GuzzleHttp\Exception\RequestException When an error is encountered
      *
@@ -384,7 +388,7 @@ class reddit2 extends \spouts\spout {
      * @throws \RuntimeException if the response body is not in JSON format
      * @throws \Exception if the credentials are invalid
      */
-    private function login($params) {
+    private function login(array $params) {
         $http = WebClient::getHttpClient();
         $response = $http->post("https://ssl.reddit.com/api/login/{$params['username']}", [
             'body' => [

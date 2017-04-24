@@ -40,6 +40,8 @@ class Statements extends \daos\mysql\Statements {
     /**
      * Convert boolean into a representation recognized by the database engine.
      *
+     * @param bool $bool
+     *
      * @return string representation of boolean
      */
     public static function bool($bool) {

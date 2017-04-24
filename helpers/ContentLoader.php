@@ -224,7 +224,9 @@ class ContentLoader {
     /**
      * Check if a new item matches the filter
      *
-     * @param $feed object and new item to add
+     * @param string $source
+     * @param string $title
+     * @param string $content
      *
      * @return bool indicating filter success
      */
@@ -287,12 +289,12 @@ class ContentLoader {
     /**
      * Fetch the thumbanil of a given item
      *
-     * @param $thumbnail the thumbnail url
-     * @param $newItem new item for saving in database
+     * @param string $thumbnail the thumbnail url
+     * @param array $newItem new item for saving in database
      *
      * @return array the newItem Object with thumbnail
      */
-    protected function fetchThumbnail($thumbnail, $newItem) {
+    protected function fetchThumbnail($thumbnail, array $newItem) {
         if (strlen(trim($thumbnail)) > 0) {
             $extension = 'jpg';
             $imageHelper = new \helpers\Image();
@@ -316,13 +318,13 @@ class ContentLoader {
     /**
      * Fetch the icon of a given feed item
      *
-     * @param $icon icon given by the spout
-     * @param $newItem new item for saving in database
-     * @param $lasticon the last fetched icon (byref)
+     * @param string $icon icon given by the spout
+     * @param array $newItem new item for saving in database
+     * @param &string $lasticon the last fetched icon
      *
      * @return mixed newItem with icon
      */
-    protected function fetchIcon($icon, $newItem, &$lasticon) {
+    protected function fetchIcon($icon, array $newItem, &$lasticon) {
         if (strlen(trim($icon)) > 0) {
             $extension = 'png';
             if ($icon === $lasticon) {
