@@ -93,8 +93,8 @@ class youtube extends \spouts\rss\feed {
 
         // no enclosures: search image link in content
         } else {
-            $image = $this->getImage(@$item->get_content());
-            if ($image !== false) {
+            $image = \helpers\Image::findFirstImageSource(@$item->get_content());
+            if ($image !== null) {
                 return $image;
             }
         }
