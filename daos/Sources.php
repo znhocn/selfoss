@@ -86,7 +86,7 @@ class Sources extends Database {
         // spout type
         $spoutLoader = new \helpers\SpoutLoader();
         $spout = $spoutLoader->get($spout);
-        if ($spout == false) {
+        if ($spout === null) {
             $result['spout'] = 'invalid spout type';
 
         // check params

@@ -84,7 +84,7 @@ class ContentLoader {
         // get spout
         $spoutLoader = new \helpers\SpoutLoader();
         $spout = $spoutLoader->get($source['spout']);
-        if ($spout === false) {
+        if ($spout === null) {
             \F3::get('logger')->error('unknown spout: ' . $source['spout']);
 
             return;
@@ -363,7 +363,7 @@ class ContentLoader {
          $spoutLoader = new \helpers\SpoutLoader();
          $spout = $spoutLoader->get($data['spout']);
 
-         if ($spout === false) {
+         if ($spout === null) {
              \F3::get('logger')->error("Unknown spout '{$data['spout']}' when fetching title");
 
              return null;
