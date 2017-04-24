@@ -30,10 +30,10 @@ class feed extends \spouts\spout {
     /** @var ?array current fetched items */
     protected $items = null;
 
-    /** @var string URL of the source */
-    protected $htmlUrl = '';
+    /** @var ?string URL of the source */
+    protected $htmlUrl = null;
 
-    /** @var string URL of the favicon */
+    /** @var ?string URL of the favicon */
     protected $faviconUrl = null;
 
     //
@@ -154,23 +154,19 @@ class feed extends \spouts\spout {
      *
      * @param array $params params for the source
      *
-     * @return string url as xml
+     * @return ?string url as xml
      */
-        return isset($params['url']) ? html_entity_decode($params['url']) : false;
     public function getXmlUrl(array $params) {
+        return isset($params['url']) ? html_entity_decode($params['url']) : null;
     }
 
     /**
      * returns the global html url for the source
      *
-     * @return string url as html
+     * @return ?string url as html
      */
     public function getHtmlUrl() {
-        if (isset($this->htmlUrl)) {
-            return $this->htmlUrl;
-        }
-
-        return false;
+        return $this->htmlUrl;
     }
 
     /**
@@ -188,7 +184,7 @@ class feed extends \spouts\spout {
             return $id;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -201,7 +197,7 @@ class feed extends \spouts\spout {
             return htmlspecialchars_decode(@current($this->items)->get_title());
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -214,7 +210,7 @@ class feed extends \spouts\spout {
             return @current($this->items)->get_content();
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -227,7 +223,7 @@ class feed extends \spouts\spout {
             return $this->faviconUrl;
         }
 
-        $this->faviconUrl = false;
+        $this->faviconUrl = null;
         $imageHelper = $this->getImageHelper();
         $htmlUrl = $this->getHtmlUrl();
         if ($htmlUrl && $imageHelper->fetchFavicon($htmlUrl, true)) {
@@ -256,7 +252,7 @@ class feed extends \spouts\spout {
             return $link;
         }
 
-        return false;
+        return null;
     }
 
     /**

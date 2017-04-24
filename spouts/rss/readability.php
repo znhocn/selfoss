@@ -61,7 +61,7 @@ class readability extends feed {
      */
     public function getContent() {
         $contentFromReadability = $this->fetchFromReadability(parent::getLink());
-        if ($contentFromReadability === false) {
+        if ($contentFromReadability === null) {
             return 'readability parse error <br />' . parent::getContent();
         }
 
@@ -79,7 +79,7 @@ class readability extends feed {
         $content = @file_get_contents('https://readability.com/api/content/v1/parser?token=' . $this->apiKey . '&url=' . $url);
         $data = json_decode($content);
         if (isset($data->content) === false) {
-            return false;
+            return null;
         }
 
         return $data->content;

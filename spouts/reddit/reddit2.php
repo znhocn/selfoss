@@ -174,7 +174,7 @@ class reddit2 extends \spouts\spout {
             return $id;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -187,7 +187,7 @@ class reddit2 extends \spouts\spout {
             return @current($this->items)['data']['title'];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -213,7 +213,7 @@ class reddit2 extends \spouts\spout {
             return @current($this->items)['data']['url'];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -252,7 +252,7 @@ class reddit2 extends \spouts\spout {
             return @current($this->items)['data']['url'];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -280,7 +280,7 @@ class reddit2 extends \spouts\spout {
             return 'https://www.reddit.com' . @current($this->items)['data']['permalink'];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -293,7 +293,7 @@ class reddit2 extends \spouts\spout {
             return @current($this->items)['data']['thumbnail'];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -340,14 +340,14 @@ class reddit2 extends \spouts\spout {
      */
     private function fetchFromReadability($url) {
         if (empty($this->apiKey)) {
-            return false;
+            return null;
         }
 
         $response = $this->sendRequest('https://readability.com/api/content/v1/parser?token=' . $this->apiKey . '&url=' . urlencode($url));
 
         $data = $response->json();
         if (!isset($data['content'])) {
-            return false;
+            return null;
         }
 
         return $data['content'];
@@ -368,7 +368,7 @@ class reddit2 extends \spouts\spout {
         $dom = new \DOMDocument();
         @$dom->loadHTML($content);
         if (!$dom) {
-            return false;
+            return null;
         }
         $xpath = new \DOMXPath($dom);
         $elements = $xpath->query("//div[@id='story']");

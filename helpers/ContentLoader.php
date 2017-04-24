@@ -118,7 +118,7 @@ class ContentLoader {
         }
         $itemsFound = $this->itemsDao->findAll($itemsInFeed, $source['id']);
 
-        $lasticon = false;
+        $lasticon = null;
         $itemsSeen = [];
         foreach ($spout as $item) {
             // item already in database?
@@ -187,7 +187,7 @@ class ContentLoader {
                 'datetime' => $itemDate->format('Y-m-d H:i:s'),
                 'uid' => $item->getId(),
                 'thumbnail' => $item->getThumbnail(),
-                'icon' => $icon !== false ? $icon : '',
+                'icon' => $icon !== null ? $icon : '',
                 'link' => htmLawed($item->getLink(), ['deny_attribute' => '*', 'elements' => '-*']),
                 'author' => $author
             ];
