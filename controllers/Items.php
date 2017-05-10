@@ -161,8 +161,7 @@ class Items extends BaseController {
         }
         if (array_key_exists('sources', $_GET) && $_GET['sources'] == 'true') {
             $sourcesDao = new \daos\Sources();
-            $sourcesController = new \controllers\Sources();
-            $stats['sourceshtml'] = $sourcesController->renderSources($sourcesDao->getWithUnread());
+            $stats['sources'] = $sourcesDao->getWithUnread();
         }
 
         $this->view->jsonSuccess($stats);
@@ -200,8 +199,7 @@ class Items extends BaseController {
             }
             if (array_key_exists('sources', $_GET) && $_GET['sources'] == 'true') {
                 $sourcesDao = new \daos\Sources();
-                $sourcesController = new \controllers\Sources();
-                $sync['sourceshtml'] = $sourcesController->renderSources($sourcesDao->getWithUnread());
+                $sync['sources'] = $sourcesDao->getWithUnread();
             }
 
             $wantItemsStatuses = array_key_exists('itemsStatuses', $_GET) && $_GET['itemsStatuses'] == 'true';

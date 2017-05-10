@@ -56,8 +56,8 @@ selfoss.dbOnline = {
                         data.stats.starred);
                     selfoss.refreshTags(data.tagshtml);
 
-                    if ('sourceshtml' in data) {
-                        selfoss.refreshSources(data.sourceshtml);
+                    if ('sources' in data) {
+                        selfoss.refreshSources(data.sources);
                     }
 
                     if ('itemUpdates' in data) {
