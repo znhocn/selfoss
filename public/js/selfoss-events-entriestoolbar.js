@@ -92,7 +92,7 @@ selfoss.events.entriesToolbar = function(parent) {
 
             $.ajax({
                 url: $('base').attr('href') + (starr ? 'starr/' : 'unstarr/') + id,
-                data: { ajax: true },
+                data: {},
                 type: 'POST',
                 error: function(jqXHR, textStatus, errorThrown) {
                     // rollback ui changes
@@ -174,7 +174,7 @@ selfoss.events.entriesToolbar = function(parent) {
 
             $.ajax({
                 url: $('base').attr('href') + (unread ? 'mark/' : 'unmark/') + id,
-                data: { ajax: true },
+                data: {},
                 type: 'POST',
                 error: function(jqXHR, textStatus, errorThrown) {
                     // rollback ui changes
