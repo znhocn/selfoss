@@ -41,5 +41,9 @@
         "platform": {
             "php": "5.4.45"
         }
+    },
+    "scripts": {
+        "cs": "utils/vendor/bin/php-cs-fixer fix --verbose --dry-run --diff",
+        "lint": "utils/vendor/bin/parallel-lint controllers daos helpers spouts templates"
     }
 }

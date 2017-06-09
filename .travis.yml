@@ -26,9 +26,13 @@ cache:
 
 before_install:
     - nvm install 6
+    - npm install -g grunt-cli
+    - npm install
     - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi
-    - if [ "$CS_FIXER" = true ]; then composer create-project --no-dev --no-interaction friendsofphp/php-cs-fixer utils/php-cs-fixer; fi
-    - composer create-project --no-dev --no-interaction jakub-onderka/php-parallel-lint utils/php-parallel-lint
+    # Remove unused or incompatible packages
+    - if [ "$CS_FIXER" != true ]; then composer remove --no-interaction -d utils friendsofphp/php-cs-fixer; fi
+    # Install the remaining ones
+    - grunt dev:install
 
 install:
     - composer self-update
@@ -37,8 +41,8 @@ before_script:
     - composer install --prefer-dist --no-interaction
 
 script:
-    - utils/php-parallel-lint/parallel-lint controllers daos helpers spouts templates
-    - if [ "$CS_FIXER" = true ]; then utils/php-cs-fixer/php-cs-fixer fix --verbose --dry-run --diff; fi
+    - grunt lint
+    - if [ "$CS_FIXER" = true ]; then grunt cs; fi
 
 before_deploy:
     - source utils/package.sh

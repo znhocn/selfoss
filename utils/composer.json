@@ -1,0 +1,9 @@
+{
+    "name": "fossar/selfoss-dev",
+    "description": "Development dependencies for selfoss",
+    "type": "library",
+    "require": {
+        "friendsofphp/php-cs-fixer": "^2.3",
+        "jakub-onderka/php-parallel-lint": "^0.9.2"
+    }
+}

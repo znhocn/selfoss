@@ -157,4 +157,9 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['install', 'versionupdater', 'compress']);
     grunt.registerTask('version', ['versionupdater']);
     grunt.registerTask('zip', ['compress']);
+
+    grunt.registerTask('dev:install', 'Install development dependencies', ['composer:install --no-dev -d utils']);
+    grunt.registerTask('cs', 'Check PHP coding style', ['dev:install', 'composer:run-script cs']);
+    grunt.registerTask('lint', 'Check PHP syntax', ['dev:install', 'composer:run-script lint']);
+    grunt.registerTask('check', 'Check source code for problems and style violation', ['lint', 'cs']);
 };
