@@ -51,19 +51,22 @@ $f3->set('logger', $log);
 $f3->set('ONERROR',
     function(Base $f3) {
         $exception = $f3->get('EXCEPTION');
+        try {
+            if ($exception) {
+                \F3::get('logger')->error($exception->getMessage(), ['exception' => $exception]);
+            } else {
+                \F3::get('logger')->error($f3->get('ERROR.text'));
+            }
 
-        if ($exception) {
-            \F3::get('logger')->error($exception->getMessage(), ['exception' => $exception]);
-        } else {
-            \F3::get('logger')->error($f3->get('ERROR.text'));
-        }
-
-        if (\F3::get('DEBUG') != 0) {
-            echo $f3->get('lang_error') . ': ';
-            echo $f3->get('ERROR.text') . "\n";
-            echo $f3->get('ERROR.trace');
-        } else {
-            echo $f3->get('lang_error');
+            if (\F3::get('DEBUG') != 0) {
+                echo $f3->get('lang_error') . ': ';
+                echo $f3->get('ERROR.text') . "\n";
+                echo $f3->get('ERROR.trace');
+            } else {
+                echo $f3->get('lang_error_check_logs');
+            }
+        } catch (Exception $e) {
+            echo $f3->get('lang_error_unwritable_logs');
         }
     }
 );
