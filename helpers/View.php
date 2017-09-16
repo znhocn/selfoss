@@ -66,7 +66,8 @@ class View {
                 $port = ':' . $_SERVER['HTTP_X_FORWARDED_PORT'];
             }
 
-            $base = $protocol . '://' . $host . $port . $subdir . '/';
+            //$base = $protocol . '://' . $host . $port . $subdir . '/';
+            $base = $protocol . '://' . $host . $subdir . '/';
         }
 
         return $base;
