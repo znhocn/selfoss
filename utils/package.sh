@@ -1,11 +1,9 @@
 #!/bin/sh
-npm install -g grunt
-npm install
-
 if [ -z "$TRAVIS_TAG" ]; then
     SHORT_COMMIT=$(git rev-parse --short HEAD)
     NEW_VERSION=$(jq -r '.ver' package.json | sed "s/SNAPSHOT/$SHORT_COMMIT/")
-    grunt replace --newversion=$NEW_VERSION
+    npm run bump-version $NEW_VERSION
+    git commit -am 'Update version strings'
 fi
 
-grunt
+npm run dist

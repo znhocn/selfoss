@@ -1,18 +1,30 @@
 {
   "name": "selfoss",
   "description": "selfoss",
-  "ver": "2.18-SNAPSHOT",
+  "ver": "2.19-SNAPSHOT",
   "repository": {
     "type": "git",
     "url": "https://github.com/SSilence/selfoss.git"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-auto-install": "^0.3.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-composer": "^0.4.5",
-    "grunt-contrib-compress": "^0.10.0",
-    "grunt-eslint": "^20.0.0",
-    "grunt-text-replace": "~0.3"
+    "archiver": "^3.0.0",
+    "eslint": "^5.14.1"
+  },
+  "engines": {
+    "npm": ">=5"
+  },
+  "scripts": {
+    "bump-version": "$NODE utils/bump-version.js",
+    "check": "npm run check:client && npm run check:server",
+    "check:client": "npm run lint:client",
+    "check:server": "npm run lint:server && npm run cs:server",
+    "cs:server": "composer run-script cs",
+    "dev": "npm run --prefix assets/ dev",
+    "build": "npm run --prefix assets/ build",
+    "dist": "npm install --ignore-scripts && $NODE utils/create-zipball.js",
+    "install-dependencies": "composer install --no-dev --optimize-autoloader --prefer-dist && npm install --prefix assets/",
+    "lint:client": "eslint assets/js/*.js",
+    "lint:server": "composer run-script lint",
+    "postinstall": "npm run install-dependencies"
   }
 }

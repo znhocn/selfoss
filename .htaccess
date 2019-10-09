@@ -15,19 +15,16 @@ RewriteRule thumbnails/(.*)$ data/thumbnails/$1 [L]
 
 # rule for front controller
 RewriteCond %{QUERY_STRING} ^(.*)$
-RewriteRule !.(js|ico|gif|jpg|png|css|asc|txt|eot|woff|ttf|ttf|svg|xml)$ index.php?%1
+RewriteRule !.(js|ico|gif|jpg|png|css|map|asc|txt|svg|xml|webmanifest)$ index.php?%1
 
 # rule for files
 RewriteRule !favicons/ - [C]
 RewriteRule !thumbnails - [C]
 RewriteRule !public - [C]
 RewriteRule !index.php - [C]
+RewriteRule !user.css - [C]
+RewriteRule !user.js - [C]
 RewriteRule (.*) public/$1 [L]
-
-# set magic_quotes_gpc as f3 wouldn't start otherwise
-<IfModule mod_php5.c>
-    php_value magic_quotes_gpc "1"
-</IfModule>
 
 # deny requests for config files
 <FilesMatch ".(ini)$">
@@ -65,10 +62,6 @@ RewriteRule (.*) public/$1 [L]
 
   # JavaScript
     ExpiresByType application/javascript                "access plus 1 year"
-
-  # Manifest files
-    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
-    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
 
   # Media
     ExpiresByType audio/ogg                             "access plus 1 month"
@@ -129,6 +122,3 @@ RewriteRule (.*) public/$1 [L]
     </IfModule>
 
 </IfModule>
-
-# add font types for chromium/chrome
-AddType application/font-woff woff

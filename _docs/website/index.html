@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>selfoss - the open source web based rss reader and multi source mashup aggregator</title>
+    <title>selfoss – the open source web based rss reader and multi source mashup aggregator</title>
 
     <meta charset="utf-8">
     <meta name="copyright" content="Tobias Zeising">
@@ -13,8 +13,8 @@
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
-    <link type="text/css" rel="stylesheet" media="screen, handheld, projection, tv" href="style.css">
-    <link rel="stylesheet" type="text/css" href="javascript/fancybox/jquery.fancybox.css" media="screen">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="javascript/jquery.fancybox.min.css">
 </head>
 <body>
 
@@ -27,7 +27,7 @@
             <li class="documentation">documentation</li>
             <li class="about">about</li>
             <li class="forum"><a href="/forum">forum</a></li>
-            <li class="download"><a href="https://github.com/SSilence/selfoss/releases/download/2.18/selfoss-2.18-SNAPSHOT.zip">download</a></li>
+            <li class="download"><a href="https://github.com/SSilence/selfoss/releases/download/2.18/selfoss-2.19-SNAPSHOT.zip">download</a></li>
         </ul>
 
         <a id="header-fork" href="https://github.com/SSilence/selfoss"></a>
@@ -36,7 +36,7 @@
 
         <div id="header-just-updated"></div>
 
-        <a id="header-download" href="https://github.com/SSilence/selfoss/releases/download/2.18/selfoss-2.18-SNAPSHOT.zip"><span>download selfoss 2.18-SNAPSHOT</span></a>
+        <a id="header-download" href="https://github.com/SSilence/selfoss/releases/download/2.18/selfoss-2.19-SNAPSHOT.zip"><span>download selfoss 2.19-SNAPSHOT</span></a>
 
         <a id="header-donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=LR67F3T9DMSC8"><span>donate</span></a>
 
@@ -64,7 +64,8 @@
                 <li>OPML Import</li>
                 <li>easy installation: upload and run</li>
                 <li>with restful json api</li>
-                <li>third party apps for <a href="https://itunes.apple.com/us/app/cataracta/id817392033?mt=8&amp;uo=4">iOS</a> and Android (<a href="https://play.google.com/store/apps/details?id=fr.ydelouis.selfoss">Selfoss</a> and <a href="https://play.google.com/store/apps/details?id=apps.amine.bou.readerforselfoss">RSS Reader for Selfoss</a>) available</li>
+                <li>offline web app</li>
+                <li>third party <a href="https://play.google.com/store/apps/details?id=apps.amine.bou.readerforselfoss">app for Android</a> available</li>
             </ul>
         </div>
     </div>
@@ -75,9 +76,9 @@
             <h1>Screenshots</h1>
 
             <ul>
-                <li><a href="images/screenshot1.png" title="selfoss on desktop" rel="screenshots"><img src="images/screenshot1_thumb.png" alt="selfoss on desktop"></a></li>
-                <li><a href="images/screenshot2.png" title="selfoss on ipad" rel="screenshots"><img src="images/screenshot2_thumb.png" alt="selfoss on ipad"></a></li>
-                <li><a href="images/screenshot3.png" title="selfoss on smartphone" rel="screenshots"><img src="images/screenshot3_thumb.png" alt="selfoss on smartphone"></a></li>
+                <li><a href="images/screenshot1.png" title="selfoss on desktop" data-fancybox="screenshots"><img src="images/screenshot1_thumb.png" alt="selfoss on desktop"></a></li>
+                <li><a href="images/screenshot2.png" title="selfoss on ipad" data-fancybox="screenshots"><img src="images/screenshot2_thumb.png" alt="selfoss on ipad"></a></li>
+                <li><a href="images/screenshot3.png" title="selfoss on smartphone" data-fancybox="screenshots"><img src="images/screenshot3_thumb.png" alt="selfoss on smartphone"></a></li>
             </ul>
 
         </div>
@@ -91,10 +92,10 @@
 
             <h2>Requirements</h2>
             <div class="documentation-entry">
-                <p>selfoss is not a hosted service. It has to be installed on your own webserver. This webserver must fulfill the following requirements (which are available from most providers)</p>
+                <p>selfoss is not a hosted service. It has to be installed on your own webserver. This webserver must fulfil the following requirements (which are available from most providers)</p>
                 <ul>
-                    <li>PHP 5.4 or higher with the php-gd and php-http extensions enabled. Some spouts may also require curl or mbstring extensions.</li>
-                    <li>MySQL 5.5.3 or higher, PostgreSQL, or Sqlite</li>
+                    <li>PHP 5.6 or higher with the php-gd and php-http extensions enabled. Some spouts may also require curl or mbstring extensions.</li>
+                    <li>MySQL 5.5.3 or higher, PostgreSQL, or SQLite</li>
                     <li>Apache Webserver (nginx and lighttpd also possible)</li>
                 </ul>
 
@@ -131,8 +132,7 @@
                     <code>
 [globals]
 username=secretagent
-password=5d95c032abce4865d49ee225d28a8a939ea39a924a158f0056ebb1880d9
-salt=1291929@9394$95%939201098*61234324(@#$(!*@#981923123</code>
+password=$2y$10$xLurmBB0HJ60.sar1Z38r.ajtkruUIay7rwFRCvcaDl.1EU4epUH6</code>
                 </pre>
                 <p>Sample config.ini file with a MySQL database connection:</p>
                 <pre>
@@ -173,7 +173,7 @@ db_port=3306</code>
             <div class="documentation-entry">
                 <p>selfoss offers the following configuration parameters. You can set the config parameters in the <code>config.ini</code> file.</p>
 
-                <table border="1" cellspacing="0" cellpadding="5">
+                <table>
                     <tr>
                         <th class="documentation-first-column">Parameter</th>
                         <th>Functionality</th>
@@ -211,8 +211,12 @@ db_port=3306</code>
                         <td>port for database connections (3306 for mysql, 5432 for PostgreSQL</td>
                     </tr>
                     <tr>
+                        <td class="documentation-first-column">logger_destination</td>
+                        <td>By default, the logs are saved to <code>data/logs/default.log</code> but you can choose a different file by specifying a file path prefixed by <code>file:</code>. Setting <code>file:php://stderr</code> is especially useful when running selfoss on a PaaS or inside Docker. Alternately, you can set the option to <code>error_log</code> to redirect the messages to <a href="https://secure.php.net/manual/en/function.error-log.php">SAPI error log</a> – handy for PHP-FPM, which <a href="https://secure.php.net/manual/en/install.fpm.configuration.php#catch-workers-output">discards stderr</a> by default.</td>
+                    </tr>
+                    <tr>
                         <td class="documentation-first-column">logger_level</td>
-                        <td>set logging level – following logging levels are available: <code>EMERGENCY</code>, <code>ALERT</code>, <code>CRITICAL</code>, <code>ERROR</code>, <code>WARNING</code>, <code>NOTICE</code>, <code>INFO</code>, <code>DEBUG</code>. Additionally, you can use <code>NONE</code> pseude-level to turn the logging off completely.<br>Use this for troubleshooting on updating feeds (but be aware that the log file can become very large.) The logged messages will be saved to <code>/data/logs/default.log</code>.</td>
+                        <td>set logging level – following logging levels are available: <code>EMERGENCY</code>, <code>ALERT</code>, <code>CRITICAL</code>, <code>ERROR</code>, <code>WARNING</code>, <code>NOTICE</code>, <code>INFO</code>, <code>DEBUG</code>. Additionally, you can use <code>NONE</code> pseudo-level to turn the logging off completely.<br>Use this for troubleshooting on updating feeds (but be aware that the log file can become very large.)</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">items_perpage</td>
@@ -220,7 +224,7 @@ db_port=3306</code>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">items_lifetime</td>
-                        <td>days until items will be deleted (marked items will never be deleted)</td>
+                        <td>days until items will be deleted (starred items will never be deleted)</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">base_url</td>
@@ -235,12 +239,12 @@ db_port=3306</code>
                         <td>password hash for optional login. You can generate a password hash by using following page of your selfoss installation. https://your_selfoss_url.com/password</td>
                     </tr>
                     <tr>
-                        <td class="documentation-first-column">salt</td>
-                        <td>salt for hashing the password (see <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">Wikipedia</a>)</td>
+                        <td class="documentation-first-column"><del>salt</del> (deprecated)</td>
+                        <td>salt for hashing the password (see <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">Wikipedia</a>). Not used for passwords generated using selfoss 2.19 or newer.</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">public</td>
-                        <td>if you use login (username and password is set), you can allow guests to see your stream. Enter 1 for enabling this writeprotected mode</td>
+                        <td>if you use login (username and password is set), you can allow guests to see your stream. Enter 1 for enabling this write-protected mode</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">rss_title</td>
@@ -256,13 +260,13 @@ db_port=3306</code>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">homepage</td>
-                        <td>set here your prefered homepage. Choose between <code>newest</code>, <code>unread</code> and <code>starred</code>. It is also possible to configure a tag (e.g. <code>unread/tag-yourtag</code>) or a source (e.g. <code>newest/source-123</code>). Default = <code>newest</code>.</td>
+                        <td>set here your preferred homepage. Choose between <code>newest</code>, <code>unread</code> and <code>starred</code>. It is also possible to configure a tag (e.g. <code>unread/tag-yourtag</code>) or a source (e.g. <code>newest/source-123</code>). Default = <code>newest</code>.</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">auto_mark_as_read</td>
                         <td>set this to 1 for automatically marking items as read after open/read them.</td>
                     </tr>
-		    <tr>
+                    <tr>
                         <td class="documentation-first-column">auto_collapse</td>
                         <td>set this to 1 for automatically collapsing items when another one is opened.</td>
                     </tr>
@@ -272,19 +276,11 @@ db_port=3306</code>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">language</td>
-                        <td>set 0 or leave empty for auto detection (browser language) or set "de" for german, "en" for english, "fr" for french, "cs" for czech, "nl" for dutch, "ru" for russian, "tr" for turkish, "lv" for latvian, "tw" for traditional chinese, "cn" for simplified chinese</td>
+                        <td>set 0 or leave empty for auto detection (browser language) or set "de" for German, "en" for English, "fr" for French, "cs" for Czech, "nl" for Dutch, "ru" for Russian, "tr" for Turkish, "lv" for Latvian, "zh-TW" for Traditional Chinese, "zh-CN" for Simplified Chinese</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">anonymizer</td>
                         <td>set here your anonymizer service url. e.g.: anonymizer=https://anonym.to/?</td>
-                    </tr>
-                    <tr>
-                        <td class="documentation-first-column">use_system_font</td>
-                        <td>set use_system_font=1 if you have problems with special characters. Then instead of Open Sans the font Arial will be used.</td>
-                    </tr>
-                    <tr>
-                        <td class="documentation-first-column">readability</td>
-                        <td>default API key for all feeds fetched by readability spout. You can also enter the readability API key in the spout parameters for every single feed.</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">allow_public_update_access</td>
@@ -292,7 +288,7 @@ db_port=3306</code>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">share</td>
-                        <td>share defines which share buttons beneath the entry are visible. Default is share=gtfprde (g = google, f = facebook, t = twitter, p = pocket, r = readability, d = delicious, w = wallabag, e = email). When you would like to show only facebook and twitter share button use share=ft.</td>
+                        <td>share defines which share buttons beneath the entry are visible. Default is share=tfpde (f = facebook, t = twitter, p = pocket, d = diaspora, w = wallabag, e = email). When you would like to show only facebook and twitter share button use share=ft.</td>
                     </tr>
                     <tr>
                         <td class="documentation-first-column">wallabag</td>
@@ -330,6 +326,10 @@ db_port=3306</code>
                         <td class="documentation-first-column">camo_key</td>
                         <td>Camo domain used to proxify images (optional). See <a href="https://github.com/atmos/camo">atmos/camo</a> for more details</td>
                     </tr>
+                    <tr>
+                        <td class="documentation-first-column">show_thumbnails</td>
+                        <td>If set to false, thumbnails are not shown in the collapsed view. Defaults to true.</td>
+                    </tr>
                 </table>
             </div>
 
@@ -337,7 +337,7 @@ db_port=3306</code>
             <div class="documentation-entry">
                 <p>selfoss offers some keyboard shortcuts. They are very similar to the google reader shortcuts.</p>
 
-                <table border="1" cellspacing="0" cellpadding="5">
+                <table>
                     <tr>
                         <th class="documentation-first-column">Shortcut</th>
                         <th>Functionality</th>
@@ -444,13 +444,12 @@ db_port=3306</code>
                     <li>heise News with full content</li>
                     <li>golem News with full content</li>
                     <li>MMOSpy News with full content</li>
-                    <li>RSS Feeds with readability</li>
                 </ul>
                 <p>
                     If you want to get the newest entries from your own source (e.g. an IMAP Email Account, Log Files or any data from your own application), you can include a new spout in your selfoss stream by writing just one php class (saved in one php file).
                 </p>
                 <p>
-                    Create a new php file under <code>/spouts/your_spouts/your_spout.php</code> (choose a name for <code>your_spouts</code> and <code>your_spout</code>). The easiest way is to copy the <code><a href="https://github.com/SSilence/selfoss/blob/master/spouts/rss/feed.php">/spouts/rss/feed.php</a></code> and to modify this file.
+                    Create a new php file under <code>src/spouts/your_spouts/your_spout.php</code> (choose a name for <code>your_spouts</code> and <code>your_spout</code>). The easiest way is to copy the <code><a href="https://github.com/SSilence/selfoss/blob/mastersrc/spouts/rss/feed.php">src/spouts/rss/feed.php</a></code> and to modify this file.
                 </p>
 
                 <h3>Member Variables</h3>
@@ -520,7 +519,7 @@ db_port=3306</code>
                 <h3>Thumbnails</h3>
 
                 <p>
-                    If you would like to show thumbnails instead of text, you have to implement the optional method <code>getThumbnail()</code>. This method have to return the url of the image. selfoss will load and generate the thumbnail automatically. See <code><a href="https://github.com/SSilence/selfoss/blob/master/spouts/rss/images.php">\spouts\rss\images.php</a></code> for an example. This spout searches for an image in an rss feed and returns it.
+                    If you would like to show thumbnails instead of text, you have to implement the optional method <code>getThumbnail()</code>. This method have to return the url of the image. selfoss will load and generate the thumbnail automatically. See <code><a href="https://github.com/SSilence/selfoss/blob/master/src/spouts/rss/images.php">src/spouts/rss/images.php</a></code> for an example. This spout searches for an image in an rss feed and returns it.
                 </p>
 
                 <h3>Your Spouts</h3>
@@ -558,7 +557,7 @@ db_port=3306</code>
                 </p>
 
                 <p>
-                    FancyBox on this page is from <a href="http://www.fancyapps.com/fancybox/">fancyapps.com</a>.
+                    FancyBox on this page is from <a href="https://fancyapps.com/fancybox/3/">fancyapps.com</a>.
                 </p>
             </div>
         </div>
@@ -582,9 +581,8 @@ db_port=3306</code>
         </p>
     </div>
 
-    <script type="text/javascript" src="javascript/jquery-1.9.0.min.js"></script>
-    <script type="text/javascript" src="javascript/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-    <script type="text/javascript" src="javascript/fancybox/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="javascript/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="javascript/base.js"></script>
 
 
